@@ -1,5 +1,6 @@
-def check_dataset(dataset_root_dir='/dataset'):
-    import os
+import os
+
+def check_dataset(dataset_root_dir):
     if not os.path.exists(dataset_root_dir + '/Skin cancer ISIC The International Skin Imaging Collaboration'):
         print('Dataset not found, checking directory...')
         if not os.path.exists(dataset_root_dir): os.mkdir(dataset_root_dir)
