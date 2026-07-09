@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Cancer Detection Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <div class="col-md-6 d-flex align-items-center justify-content-center h-100">
+            <div class="card" style="width: 100%;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Upload Image</h5>
+                    <p class="card-text">Upload a skin image to get the prediction.</p>
+                    <!-- Form for uploading an image -->
+                    <form action="/predict" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" name="image_file" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Predict</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-center h-100">
+            <div class="card" style="width: 100%;">
+                <div class="card-body text-center">
+                    <!-- Display prediction result -->
+                    {% if prediction %}
+                        <h5 class="card-title">Prediction Result</h5>
+                        <p class="card-text">The predicted class is: {{ prediction }}</p>
+                    {% else %}
+                        <h5 class="card-title">Prediction Result</h5>
+                        <p class="card-text">Upload an image to see the prediction.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
