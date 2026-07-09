@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #aaaaaa;
         }
     </style>
 </head>
@@ -16,7 +16,7 @@
 <div class="container-fluid h-100">
     <div class="row h-100">
         <div class="col-md-6 d-flex align-items-center justify-content-center h-100">
-            <div class="card" style="width: 100%;">
+            <div class="card" style="width: 100%; background-color: white">
                 <div class="card-body text-center">
                     <h5 class="card-title">Upload Image</h5>
                     <p class="card-text">Upload a skin image to get the prediction.</p>
@@ -31,12 +31,13 @@
             </div>
         </div>
         <div class="col-md-6 d-flex align-items-center justify-content-center h-100">
-            <div class="card" style="width: 100%;">
+            <div class="card" style="width: 100%; background-color: white">
                 <div class="card-body text-center">
-                    <!-- Display prediction result -->
+                    <!-- Display prediction result and image -->
                     {% if prediction %}
                         <h5 class="card-title">Prediction Result</h5>
                         <p class="card-text">The predicted class is: {{ prediction }}</p>
+                        <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Uploaded Image" class="img-fluid">
                     {% else %}
                         <h5 class="card-title">Prediction Result</h5>
                         <p class="card-text">Upload an image to see the prediction.</p>
