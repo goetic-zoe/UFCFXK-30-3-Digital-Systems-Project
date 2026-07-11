@@ -42,12 +42,13 @@ def predict():
     # Make prediction
     prediction = model.predict(image_arr)
     predicted_class_index = np.argmax(prediction[0])
+    confidence_score = prediction[0][predicted_class_index]
     class_names = ['actinic keratosis', 'basal cell carcinoma', 'dermatofibroma', 'melanoma',
                    'nevus', 'pigmented benign keratosis', 'seborrheic keratosis',
                    'squamous cell carcinoma', 'vascular lesion']
     predicted_class = class_names[predicted_class_index]
 
-    return render_template('index.html', prediction=predicted_class, image_filename=image_filename)
+    return render_template('index.html', prediction=predicted_class, confidence=confidence_score, image_filename=image_filename)
 
 
 if __name__ == '__main__':
