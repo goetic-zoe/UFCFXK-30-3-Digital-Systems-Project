@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
+import os
+os.environ['TF_USE_LEGACY_KERAS'] = '1'
 import tensorflow as tf
 import numpy as np
 from PIL import Image
@@ -9,8 +11,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 # Load your trained model (make sure the path is correct)
-model = tf.keras.models.load_model('models/trained_cancer_cnn.keras')
-
+model = tf.keras.models.load_model('models/skin_CNN2v3.keras')
 
 @app.route('/')
 def dashboard():
