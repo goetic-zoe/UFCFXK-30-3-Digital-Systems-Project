@@ -1,0 +1,1 @@
+docker run --entrypoint "" --runtime=nvidia -e XLA_FLAGS="--xla_gpu_enable_latency_hiding_scheduler=false" -it --rm -v $(pwd):/workspace custom-tf-project python train.py 2>/dev/null
