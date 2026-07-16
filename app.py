@@ -33,22 +33,26 @@ def predict():
 
     image = tf.io.read_file(os.path.join(app.config['UPLOAD_FOLDER'], str(image_filename)))
     image = tf.image.decode_image(image, channels=3, expand_animations=False)
-    image_size = (180,180)
+    image_size = (180, 180)
     image = tf.image.resize(image, image_size)
     image = tf.cast(image, tf.float32) / 255.0
     image_arr = tf.keras.utils.img_to_array(image)
     image_arr = np.expand_dims(image_arr, axis=0)
 
     # Make prediction
-    prediction = model.predict(image_arr)
-    predicted_class_index = np.argmax(prediction[0])
-    confidence_score = prediction[0][predicted_class_index]
+    prediction = model.predict(image_arr)[0]
+    top_indices = (-prediction).argsort()[:3]  # Get indices of the top 3 predictions
+
     class_names = ['actinic keratosis', 'basal cell carcinoma', 'dermatofibroma', 'melanoma',
                    'nevus', 'pigmented benign keratosis', 'seborrheic keratosis',
                    'squamous cell carcinoma', 'vascular lesion']
-    predicted_class = class_names[predicted_class_index]
+    results = []
+    for idx in top_indices:
+        confidence_score = prediction[idx]
+        predicted_class = class_names[idx]
+        results.append((predicted_class, confidence_score))
 
-    return render_template('index.html', prediction=predicted_class, confidence=confidence_score, image_filename=image_filename)
+    return render_template('index.html', results=results, image_filename=image_filename)
 
 
 if __name__ == '__main__':
